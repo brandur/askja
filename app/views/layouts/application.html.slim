@@ -10,7 +10,7 @@ html
     link rel='icon' type='image/png' href='/images/icon.png'
     link rel='shortcut icon' type='image/png' href='/images/icon.png'
 
-    link href='/articles.atom' rel='alternate' title='Askja' type='application/atom+xml'
+    link href='/articles.atom' rel='alternate' title="#{APP_CONFIG['title']}" type='application/atom+xml'
     
     link href='http://fonts.googleapis.com/css?family=EB+Garamond&amp;subset=latin' rel='stylesheet' type='text/css'
 
@@ -37,7 +37,7 @@ html
         header
           #header onclick='javascript:'
             strong.hide
-              a href='http://mutelight.org' title="#{APP_CONFIG['title']}" APP_CONFIG['title']
+              a href='http://mutelight.org' title="#{APP_CONFIG['title']}"= APP_CONFIG['title']
         = content_for?(:content) ? yield(:content) : yield
         footer
           #about
