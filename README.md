@@ -50,8 +50,10 @@ like:
 
     git clone https://github.com/brandur/mutelight.git content
 
-Run `rake init` whether or not custom content was checked out. This task will
-generate the `content/` directory if it doesn't already exist.
+Run the `init` task whether or not custom content was checked out. This task
+will generate the `content/` directory if it doesn't already exist.
+
+    rake init
 
 Load content to the database using:
 
