@@ -3,7 +3,7 @@ Askja
 
 Askja is a minimalist blogging platform written in Rails as a more flexible
 alternative to static generators. Possibly it's most distinguishing feature is
-that it requires articles to be defined in *.yml/*.md files, which can be
+that it requires articles to be defined in `*.yml`/`*.md` files, which can be
 subsequently be loaded to the database to be served.
 
 Askja is current themed by default for http://mutelight.org, the blog that it
