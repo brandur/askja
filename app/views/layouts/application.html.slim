@@ -1,0 +1,67 @@
+doctype 5
+
+html
+  head
+    title= content_for?(:title) ? yield(:title) : APP_CONFIG['title']
+
+    meta content='text/html; charset=utf-8' http-equiv='Content-Type'
+    meta name='author' content='Brandur Leach'
+
+    link rel='icon' type='image/png' href='/images/icon.png'
+    link rel='shortcut icon' type='image/png' href='/images/icon.png'
+
+    link href='/articles.atom' rel='alternate' title='Askja' type='application/atom+xml'
+    
+    link href='http://fonts.googleapis.com/css?family=EB+Garamond&amp;subset=latin' rel='stylesheet' type='text/css'
+
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
+    = javascript_include_tag 'jquery.easing.1.3'
+    = javascript_include_tag 'http://github.com/balupton/jquery-syntaxhighlighter/raw/master/scripts/jquery.syntaxhighlighter.min.js'
+
+    = stylesheet_link_tag 'application', 'sunburst'
+    = coffee_script_bundle
+    /= coffee_script_bundle :mode => :inline
+    = csrf_meta_tag
+
+    = yield(:head)
+
+  body
+    - flash.each do |name, msg|
+      .flash id="flash_#{name}"= msg
+      - content_for(:javascript) do
+        javascript:
+          window.setTimeout('$("#flash_#{name}").slideUp(500)', 2000);
+    #radial
+    #shift
+      #wrapper
+        header
+          #header onclick='javascript:'
+            strong.hide
+              a href='http://mutelight.org' title="#{APP_CONFIG['title']}" APP_CONFIG['title']
+        = content_for?(:content) ? yield(:content) : yield
+        footer
+          #about
+            h2
+              | About
+            p.important My name is Brandur. I'm a .NET and Rails designer, developer, and architect working out of Calgary. I've done extensive development work, and I'll work on many technology stacks. Drop me a line at #{link_to 'brandur@mutelight.org', 'mailto:brandur@mutelight.org'}.
+            | I'm interested in energy and how it relates to our society, muay thai, breakdancing, symphonic metal, surfing, and the guitar.
+            p.important #{link_to 'You should follow me on Twitter', 'http://twitter.com/fyrerise'}.
+          nav
+            #nav
+              span.item Navigation &rarr;
+              span.item= link_to 'Home', '/'
+              span.item= link_to 'Archive', '/archive'
+              span.item= link_to 'Source', 'http://github.com/brandur/mutelight'
+        br
+        br
+        br
+    javascript:
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-6901854-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();

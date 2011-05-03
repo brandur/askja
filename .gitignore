@@ -1,0 +1,14 @@
+.bundle
+content
+current_article
+current_article.yml
+Gemfile.lock
+db/*.sqlite3
+log/*.log
+public/images/articles
+rake
+ruby/**/*
+test/
+tmp/**/*
+vendor/**/*
+config/initializers/secret_token.rb

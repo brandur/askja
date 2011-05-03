@@ -1,0 +1,25 @@
+- content_for(:title) do
+  = @article[:title]
+- content_for(:head) do
+  link rev='canonical' type='text/html' href="http://mutelight.org/a/#{@article.tinylink}"
+- content_for(:content) do
+  article
+    h1= @article[:title]
+    .content
+      = yield
+      p.meta
+        | Posted on 
+        strong= pretty_time(@article[:published_at])
+        |  from 
+        strong= @article[:location]
+  - if @have_related
+    h2 Related Articles
+  - else
+    h2 Newest Articles
+  ul.article
+    - @other_articles.each do |article|
+      li
+        = link_to article.title, article
+        span.alternate
+          |  &mdash; #{pretty_time(article[:published_at])}
+= render :file => 'layouts/application'
