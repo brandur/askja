@@ -10,10 +10,13 @@ html
     link rel='icon' type='image/png' href='/images/icon.png'
     link rel='shortcut icon' type='image/png' href='/images/icon.png'
 
-    link href='/articles.atom' rel='alternate' title="#{APP_CONFIG['title']}" type='application/atom+xml'
-    
     link href='http://fonts.googleapis.com/css?family=EB+Garamond&amp;subset=latin' rel='stylesheet' type='text/css'
 
+    - if content_for?(:rss)
+      = yield(:rss)
+    - else
+      link href='/articles.atom' rel='alternate' title="#{APP_CONFIG['title']}" type='application/atom+xml'
+    
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
     = javascript_include_tag 'jquery.easing.1.3'
     = javascript_include_tag 'http://github.com/balupton/jquery-syntaxhighlighter/raw/master/scripts/jquery.syntaxhighlighter.min.js'

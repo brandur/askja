@@ -91,21 +91,18 @@ strong
       color: $header_color
       font-family: georgia, serif
       font-size: 24px
-      //font-size: 20px
       font-weight: normal
       padding: 0 12px
     h2
       color: $header_color
       font-family: georgia, serif
       font-size: 20px
-      //font-size: 17px
       font-weight: normal
       padding: 0 12px
     h3
       color: $header_color
       font-family: tahoma, sans-serif
       font-size: 16px
-      //font-size: 12px
       font-weight: bold
       padding: 0 12px
     .alternate
@@ -198,6 +195,27 @@ strong
         margin: 20px 19px
       span.addendum
         color: $tertiary_color
+    .series
+      color: $secondary_color
+      font-family: tahoma, sans-serif
+      font-size: 14px
+      font-style: italic
+      font-weight: normal
+      margin: 16px 10px 
+      padding: 12px 10px
+      background-color: rgba(0,0,0,0.1)
+      -moz-box-shadow: inset 0 0 6px #000000
+      -webkit-box-shadow: inset 0 0 6px #000000
+      box-shadow: inset 0 0 6px #000000
+      span.series_number, span.series_title
+        color: $header_color
+        font-style: normal
+        font-weight: normal
+        a, a:visited, a:hover
+          color: $header_color
+    span.rss
+      margin: 0 6px
+      opacity: 0.7
     #about
       h2
         padding: 0
@@ -218,9 +236,8 @@ strong
       -moz-box-shadow: 0 0 10px black
       -webkit-box-shadow: 0 0 10px black
       box-shadow: 0 0 10px black
-    ul.article
-      list-style-type: none
-      margin: 0 10px 0 10px
+    ol.article, ul.article
+      margin: 0 10px
       padding: 0 0 10px 0
       border-top: 1px solid $separator_color
       li
@@ -234,5 +251,7 @@ strong
           text-decoration: none
         a:hover
           text-decoration: underline
+    ul.article
+      list-style-type: none
 
 //**************************************************************************//

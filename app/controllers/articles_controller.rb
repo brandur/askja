@@ -67,6 +67,7 @@ class ArticlesController < ApplicationController
       article.save!
       $stdout.puts "\t[ok] Saved #{path}"
       expire_page "/articles/#{article.permalink}"
+      expire_page "/series/#{article.series}" if article.series
       num_articles_updated += 1
     end
     if num_articles_updated > 0

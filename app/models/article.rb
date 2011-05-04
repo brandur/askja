@@ -1,4 +1,5 @@
 class Article < ActiveRecord::Base
+  belongs_to :series
   has_and_belongs_to_many :related_articles, :class_name => 'Article', 
     :join_table => :article_similarities, 
     :foreign_key => :article_id, 
@@ -19,6 +20,14 @@ class Article < ActiveRecord::Base
   # Content minus code blocks
   def content_text
     content.gsub(/^\s*```.*^\s*```\s*$/m, '')
+  end
+
+  def series_permalink=(s)
+    self.series = Series.find_by_permalink(s)
+  end
+
+  def series_position
+    series.articles.where('published_at < ?', published_at).count + 1
   end
 
   def to_param

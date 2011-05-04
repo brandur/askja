@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110428023416) do
+ActiveRecord::Schema.define(:version => 20110503040826) do
 
   create_table "article_similarities", :id => false, :force => true do |t|
     t.integer  "article_id",         :null => false
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(:version => 20110428023416) do
     t.datetime "published_at"
     t.datetime "last_updated_at"
     t.integer  "views",           :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "series_id"
+  end
+
+  create_table "series", :force => true do |t|
+    t.string   "title"
+    t.string   "content"
+    t.string   "permalink"
+    t.string   "tinylink"
+    t.datetime "last_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

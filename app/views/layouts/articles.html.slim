@@ -1,17 +1,21 @@
 - content_for(:title) do
-  = @article[:title]
+  = @article.title
 - content_for(:head) do
   link rev='canonical' type='text/html' href="http://mutelight.org/a/#{@article.tinylink}"
 - content_for(:content) do
   article
-    h1= @article[:title]
+    - if @article.series
+      .series 
+        span.series_title= link_to @article.series.title, @article.series
+        | : Article ##{@article.series_position} in the series
+    h1= @article.title
     .content
       = yield
       p.meta
         | Posted on 
-        strong= pretty_time(@article[:published_at])
+        strong= pretty_time(@article.published_at)
         |  from 
-        strong= @article[:location]
+        strong= @article.location
   - if @have_related
     h2 Related Articles
   - else
@@ -21,5 +25,5 @@
       li
         = link_to article.title, article
         span.alternate
-          |  &mdash; #{pretty_time(article[:published_at])}
+          |  &mdash; #{pretty_time(article.published_at)}
 = render :file => 'layouts/application'

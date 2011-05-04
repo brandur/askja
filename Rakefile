@@ -37,18 +37,45 @@ namespace :create do
     `ln -f -s #{md} current_article`
     `ln -f -s #{yml} current_article.yml`
   end
+
+  desc 'Creates a new series'
+  task :series do
+    def calc_path(title)
+      slug = title.parameterize('-')
+      path = "#{File.dirname(__FILE__)}/content/series/"
+      [ title.titleize, slug, "#{path}#{slug}.md", "#{path}#{slug}.yml" ]
+    end
+
+    if !ENV['title']
+      $stderr.puts "\t[error] Missing title argument.\n\tusage: rake create:series title='series title'"
+      exit 1
+    end
+
+    title, slug, md, yml = calc_path(ENV['title'])
+
+    meta = {
+      'title'     => title, 
+      'permalink' => slug, 
+      'tinylink'  => title.split(/ /).first.strip.downcase.gsub(/[^A-Za-z0-9]/, ''),
+    }
+
+    File.open(md,  'w') {|f| f.write('')}
+    File.open(yml, 'w') {|f| YAML.dump(meta, f)}
+    $stdout.puts "\t[ok] Edit #{md}"
+  end
 end
 
 desc 'Initialize a new Askja environment'
 task :init do
   `mkdir -p #{File.dirname(__FILE__)}/content/articles`
   `mkdir -p #{File.dirname(__FILE__)}/content/images`
+  `mkdir -p #{File.dirname(__FILE__)}/content/series`
   `ln -sf #{File.dirname(__FILE__)}/content/images #{File.dirname(__FILE__)}/public/images/articles`
   $stdout.puts 'Initialized Askja content'
 end
 
 desc 'Updates all entities'
-task :update => [ 'update:articles', 'update:related' ]
+task :update => [ 'update:series', 'update:articles', 'update:related' ]
 
 namespace :update do
   desc 'Update articles from *.yml files in content/articles/, use path= for a specific article'
@@ -84,6 +111,19 @@ namespace :update do
       $stdout.puts '' if is_verbose
     end
     $stdout.puts "Updated related articles for #{articles.count} article(s)"
+  end
+
+  desc 'Update series from *.yml files in content/series/, use path= for a specific series'
+  task :series => :environment do
+    paths = unless ENV['path']
+      Dir["#{File.dirname(__FILE__)}/content/series/**/*.yml"]
+    else
+      [ENV['path']]
+    end
+    is_forced = to_bool(ENV['force'])
+    $stdout.puts 'forcing update' if is_forced
+    num_series_updated = SeriesController.new.update(paths.sort, is_forced)
+    $stdout.puts "Updated #{num_series_updated} series"
   end
 
   task :top => :environment do
