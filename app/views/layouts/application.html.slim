@@ -55,6 +55,9 @@ html
               span.item= link_to 'Home', '/'
               span.item= link_to 'Archive', '/archive'
               span.item= link_to 'Source', 'http://github.com/brandur/mutelight'
+              span.item.rss
+                = link_to '/articles.atom', :title => 'Subscribe to Atom feed' do
+                  = image_tag 'rss.png'
         br
         br
         br

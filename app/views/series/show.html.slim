@@ -5,7 +5,7 @@
 h1.series_header
   = @series.title
   span.rss
-    = link_to "/series/#{@series.permalink}.atom" do
+    = link_to "/series/#{@series.permalink}.atom", :title => "Subscribe to '#{@series.title}' Atom feed" do
       = image_tag 'rss.png'
 .clear
 .content== @series.content_html
