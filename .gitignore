@@ -1,4 +1,5 @@
 .bundle
+config/config.yml
 content
 current_article
 current_article.yml
