@@ -5,6 +5,8 @@ require File.expand_path('../config/application', __FILE__)
 require 'rake'
 require 'highline/import'
 
+require 'model_loader'
+
 Askja::Application.load_tasks
 
 namespace :create do
@@ -78,17 +80,10 @@ desc 'Updates all entities'
 task :update => [ 'update:series', 'update:articles', 'update:related' ]
 
 namespace :update do
+  # @todo: abstract this task
   desc 'Update articles from *.yml files in content/articles/, use path= for a specific article'
   task :articles => :environment do
-    paths = unless ENV['path']
-      Dir["#{File.dirname(__FILE__)}/content/articles/**/*.yml"]
-    else
-      [ENV['path']]
-    end
-    is_forced = to_bool(ENV['force'])
-    $stdout.puts 'forcing update' if is_forced
-    num_articles_updated = ArticlesController.new.update(paths.sort, is_forced)
-    $stdout.puts "Updated #{num_articles_updated} article(s)"
+    update_model('articles', Article, ArticlesController.new)
   end
 
   desc 'Update all articles with their related articles (options num= and verbose=)'
@@ -115,15 +110,7 @@ namespace :update do
 
   desc 'Update series from *.yml files in content/series/, use path= for a specific series'
   task :series => :environment do
-    paths = unless ENV['path']
-      Dir["#{File.dirname(__FILE__)}/content/series/**/*.yml"]
-    else
-      [ENV['path']]
-    end
-    is_forced = to_bool(ENV['force'])
-    $stdout.puts 'forcing update' if is_forced
-    num_series_updated = SeriesController.new.update(paths.sort, is_forced)
-    $stdout.puts "Updated #{num_series_updated} series"
+    update_model('series', Series, SeriesController.new)
   end
 
   task :top => :environment do
@@ -167,5 +154,19 @@ end
 
 def to_bool(str)
   [ '1', 'true', 'y'].include?(str)
+end
+
+def update_model(name, klass, cache_controller)
+  paths = unless ENV['path']
+    Dir["#{File.dirname(__FILE__)}/content/#{name}/**/*.yml"]
+  else
+    [ENV['path']]
+  end
+  is_forced = to_bool(ENV['force'])
+  $stdout.puts 'Forcing update' if is_forced
+  updated = ModelLoader.new(klass, cache_controller).load(paths, is_forced) do |model|
+    $stdout.puts "\t[ok] Saved '#{model.title}'"
+  end
+  $stdout.puts "Updated #{updated.count} series"
 end
 

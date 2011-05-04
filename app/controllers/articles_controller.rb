@@ -46,52 +46,18 @@ class ArticlesController < ApplicationController
     redirect_to article_path(@article)
   end
 
-  # Designed to be called by Rake to load articles into the system
-  def update(paths, is_forced = false)
-    num_articles_updated = 0
-    paths.each do |path|
-      article = Article.new(YAML.load_file(path))
-      existing_article = Article.find_by_permalink(article.permalink)
-      article = if existing_article
-        # Don't perform an update if the file hasn't been modified
-        next if existing_article.last_updated_at == content_last_updated(path) && !is_forced
+  # Internal
 
-        article.content = read_content(path) unless article.content
-        existing_article.attributes = article.attributes
-        existing_article
-      else
-        article.content = read_content(path) unless article.content
-        article
-      end
-      article.last_updated_at = content_last_updated(path)
-      article.save!
-      $stdout.puts "\t[ok] Saved #{path}"
-      expire_page "/articles/#{article.permalink}"
-      expire_page "/series/#{article.series}" if article.series
-      num_articles_updated += 1
-    end
-    if num_articles_updated > 0
-      expire_page '/'
-      expire_page '/archive'
-      expire_page '/articles'
-    end
-    num_articles_updated
+  def expire_for(article)
+    expire_page "/articles/#{article.permalink}"
+    expire_page "/series/#{article.series}" if article.series
   end
 
-  private
-
-  def content_last_updated(path)
-    paths = [path]
-    paths.push(content_path(path)) if File.exists?(content_path(path))
-    paths.map{ |p| File::mtime(p) }.max
-  end
-
-  def content_path(path)
-    path.gsub /\.ya?ml$/, '.md'
-  end
-
-  def read_content(path)
-    File.open(content_path(path), 'rb').read
+  def expire_lists
+    expire_page '/'
+    expire_page '/archive'
+    expire_page '/articles'
   end
 
 end
+
