@@ -32,6 +32,10 @@ Use bundler to prepare the application's Gem dependencies in its directory:
 
     bundle install --path .
 
+### Configuration
+
+Copy `config/config.yml.example` to `config/config.yml` and modify its values as appropriate.
+
 ### Secret Token
 
 Copy `config/initializers/secret_token.rb.example` to `config/initializers/secret_token.rb`. Generate a new 512-bit token and store it in the new file. That's 128 hex [0-9a-f] characters.
