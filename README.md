@@ -72,3 +72,12 @@ Optionally, rank articles according to their views using:
 Askja should now be ready to go. Deploy it on Phusion Passenger or your 
 favorite Rails server.
 
+Troubleshooting
+---------------
+
+### Content images don't load
+
+`rake:init` creates a symlink from `public/images/articles/` back to the `content/images` directory. Nginx with Phusion Passenger for example, doesn't follow this symlink properly. A bind works instead (requires root access):
+
+    sudo mount --bind $(pwd)/content/images $(pwd)/public/images/articles
+
