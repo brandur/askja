@@ -28,7 +28,7 @@ namespace :create do
 
   desc 'Creates a new series'
   task :series do
-    create_model('articles') do |title, permalink|
+    create_model('series') do |title, permalink|
       {
         'title'     => title, 
         'permalink' => permalink, 
