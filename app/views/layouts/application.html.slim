@@ -38,7 +38,7 @@ html
     #shift
       #wrapper
         header
-          #header onclick='javascript:'
+          #header onclick='javascript:void(0)'
             strong.hide
               a href='http://mutelight.org' title="#{APP_CONFIG['title']}"= APP_CONFIG['title']
         = content_for?(:content) ? yield(:content) : yield
