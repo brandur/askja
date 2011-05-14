@@ -38,7 +38,9 @@ Copy `config/config.yml.example` to `config/config.yml` and modify its values as
 
 ### Secret Token
 
-Copy `config/initializers/secret_token.rb.example` to `config/initializers/secret_token.rb`. Generate a new 512-bit token and store it in the new file. That's 128 hex [0-9a-f] characters.
+Copy `config/initializers/secret_token.rb.example` to `config/initializers/secret_token.rb`. Generate a new 512-bit token and store it in the new file. This is best accomplished using Rake's `secret` task:
+
+    rake secret
 
 ### Load Schema
 
