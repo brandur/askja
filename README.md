@@ -87,3 +87,6 @@ follow this symlink properly. A bind works instead (requires root access):
 
     sudo mount --bind $(pwd)/content/images $(pwd)/public/images/articles
 
+This can be placed in `/etc/fstab` like so:
+
+    <src> <dest> none defaults,bind 0 0
