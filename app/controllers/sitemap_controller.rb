@@ -1,6 +1,4 @@
 class SitemapController < ApplicationController
-  #layout nil
-
   def index
     base_url = request.protocol + request.host_with_port
     latest_article = Article.published.first
@@ -8,19 +6,19 @@ class SitemapController < ApplicationController
 
     @pages << Page.new(
       :location         => base_url,
-      :last_modified_at => latest_article.published_at,
+      :last_modified_at => [latest_article.published_at, latest_article.updated_at].max,
       :change_frequency => 'daily'
     )
     @pages << Page.new(
       :location         => base_url + archive_path,
-      :last_modified_at => latest_article.published_at,
+      :last_modified_at => [latest_article.published_at, latest_article.updated_at].max,
       :change_frequency => 'daily'
     )
 
     Article.published.each do |article|
       @pages << Page.new(
         :location         => base_url + article_path(article),
-        :last_modified_at => article.last_updated_at,
+        :last_modified_at => [article.published_at, article.updated_at].max,
         :change_frequency => 'weekly'
       )
     end
@@ -52,7 +50,7 @@ class SitemapController < ApplicationController
 
     def initialize(params)
       self.location         = params[:location]
-      self.last_modified_at = params[:updated_at]
+      self.last_modified_at = params[:last_modified_at]
       self.change_frequency = params[:change_frequency]
     end
   end
