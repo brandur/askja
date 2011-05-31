@@ -1,2 +1,7 @@
 title: Askja
+
+# Used for `rake top` to get top articles from Analytics
 analytics_id: 
+
+# Used for `rake ping`, no trailing slash
+url: 

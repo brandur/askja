@@ -11,6 +11,8 @@ Askja::Application.routes.draw do
   match 'atom.xml', :to => 'articles#index', :format => 'atom'
   match 'atom',     :to => 'articles#index', :format => 'atom'
 
+  match 'sitemap(.:format)', :to => 'sitemap#index', :as => :sitemap
+
   root :to => 'articles#index'
 
   # The priority is based upon order of creation:

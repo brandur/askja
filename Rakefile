@@ -47,6 +47,24 @@ task :init do
   $stdout.puts 'Initialized Askja content'
 end
 
+desc 'Ping major search engines to indicate that our sitemap has been updated'
+task :ping => :environment do
+  if !APP_CONFIG['url']
+    $stderr.puts "\t[error] Missing config key 'url'."
+    exit 1
+  end
+
+  include ActionController::UrlWriter
+  sitemap = APP_CONFIG['url'] + sitemap_path(:format => :xml)
+  [ "http://www.google.com/webmasters/sitemaps/ping?sitemap=",
+    "http://www.bing.com/webmaster/ping.aspx?siteMap=" ,
+    "http://search.yahooapis.com/SiteExplorerService/V1/updateNotification?appid=YahooDemo&url="
+  ].each do |url|
+    $stdout.puts "Pinging #{url}#{sitemap}"
+    #puts `curl #{url}#{sitemap}`
+  end
+end
+
 desc 'Updates all entities'
 task :update => [ 'update:series', 'update:articles', 'update:related' ]
 
@@ -154,6 +172,6 @@ def update_model(name, klass, cache_controller)
   updated = ModelLoader.new(klass, cache_controller).load(paths, is_forced) do |model|
     $stdout.puts "\t[ok] Saved '#{model.title}'"
   end
-  $stdout.puts "Updated #{updated.count} series"
+  $stdout.puts "Updated #{updated.count} #{name}"
 end
 
