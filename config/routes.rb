@@ -6,7 +6,7 @@ Askja::Application.routes.draw do
   match 'series/:permalink(.:format)', :to => 'series#show', :as => :series
   match 's/:tinylink(.:format)',       :to => 'series#redirect_tinylink'
 
-  match 'archive(.:format)', :to => 'articles#archive'
+  match 'archive(.:format)', :to => 'articles#archive', :as => :archive
 
   match 'atom.xml', :to => 'articles#index', :format => 'atom'
   match 'atom',     :to => 'articles#index', :format => 'atom'
