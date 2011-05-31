@@ -6,19 +6,19 @@ class SitemapController < ApplicationController
 
     @pages << Page.new(
       :location         => base_url,
-      :last_modified_at => [latest_article.published_at, latest_article.updated_at].max,
+      :last_modified_at => [latest_article.published_at, latest_article.updated_at].find_all{|a| !a.nil?}.max,
       :change_frequency => 'daily'
     )
     @pages << Page.new(
       :location         => base_url + archive_path,
-      :last_modified_at => [latest_article.published_at, latest_article.updated_at].max,
+      :last_modified_at => [latest_article.published_at, latest_article.updated_at].find_all{|a| !a.nil?}.max,
       :change_frequency => 'daily'
     )
 
     Article.published.each do |article|
       @pages << Page.new(
         :location         => base_url + article_path(article),
-        :last_modified_at => [article.published_at, article.updated_at].max,
+        :last_modified_at => [article.published_at, article.updated_at].find_all{|a| !a.nil?}.max,
         :change_frequency => 'weekly'
       )
     end
