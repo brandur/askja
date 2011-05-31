@@ -61,7 +61,7 @@ task :ping => :environment do
     "http://search.yahooapis.com/SiteExplorerService/V1/updateNotification?appid=YahooDemo&url="
   ].each do |url|
     $stdout.puts "Pinging #{url}#{sitemap}"
-    #puts `curl #{url}#{sitemap}`
+    puts `curl #{url}#{sitemap}`
   end
 end
 
