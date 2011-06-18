@@ -13,7 +13,7 @@ class Article < ActiveRecord::Base
   scope :top, where('views > 0').order('views DESC')
 
   def content_html
-    html = Redcarpet.new(content, :fenced_code, :hard_wrap, :smart).to_html
+    html = Redcarpet.new(content, :fenced_code, :hard_wrap).to_html
     html = html.gsub /<code class="(\w+)">/, %q|<code class="language-\1">|
   end
 
