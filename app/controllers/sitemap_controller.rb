@@ -36,11 +36,11 @@ class SitemapController < ApplicationController
       )
     end
 
-    if stale?(:etag => latest_article, :last_modified => latest_article.updated_at.utc)
+    #if stale?(:etag => latest_article, :last_modified => latest_article.updated_at.utc)
       respond_to do |format|
         format.xml  { render :layout => nil }
       end
-    end
+    #end
   end
 
   private
