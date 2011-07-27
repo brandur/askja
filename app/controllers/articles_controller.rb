@@ -49,15 +49,16 @@ class ArticlesController < ApplicationController
   # Internal
 
   def expire_for(article)
-    expire_page "/articles/#{article.permalink}"
-    expire_page "/series/#{article.series}" if article.series
+    expire_page_all_formats "/articles/#{article.permalink}"
+    expire_page_all_formats "/articles/#{article.permalink}"
+    expire_page_all_formats "/series/#{article.series}" if article.series
   end
 
   def expire_lists
-    expire_page '/'
-    expire_page '/archive'
-    expire_page '/articles'
-    expire_page '/atom'
+    expire_page_all_formats '/'
+    expire_page_all_formats '/archive'
+    expire_page_all_formats '/articles'
+    expire_page_all_formats '/atom'
   end
 
 end

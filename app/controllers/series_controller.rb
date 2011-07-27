@@ -22,7 +22,7 @@ class SeriesController < ApplicationController
   # Internal
 
   def expire_for(series)
-    expire_page "/series/#{series.permalink}"
+    expire_page_all_formats "/series/#{series.permalink}"
     article_cache_controller = ArticlesController.new
     series.articles.each do |article|
       article_cache_controller.expire_for(article)
