@@ -57,6 +57,7 @@ class ArticlesController < ApplicationController
     expire_page '/'
     expire_page '/archive'
     expire_page '/articles'
+    expire_page '/atom'
   end
 
 end
