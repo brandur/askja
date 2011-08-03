@@ -13,8 +13,7 @@ gem 'jquery-rails'
 gem 'rake'
 gem 'redcarpet'
 gem 'sass'
-gem 'slim', :require => 'slim/rails'
-gem 'slim-rails'
+gem 'slim'
 gem 'sqlite3'
 
 group :development, :test do
