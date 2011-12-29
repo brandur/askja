@@ -16,10 +16,7 @@
         strong= pretty_time(@article.published_at)
         |  from 
         strong= @article.location
-  - if @have_related
-    h2 Related Articles
-  - else
-    h2 Newest Articles
+  h2 Newest Articles
   ul.article
     - @other_articles.each do |article|
       li

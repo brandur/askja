@@ -23,15 +23,10 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.published.find_by_permalink(params[:permalink])
-    raise ActiveRecord::RecordNotFound unless @article
+    @article = Article.published.find_by_permalink!(params[:permalink])
 
-    # Use LSI related articles if we have them, otherwise just a few of the 
-    # newest
     if request.format.html?
-      @other_articles = @article.related_articles.limit(3)
-      @have_related   = @other_articles.count > 0
-      @other_articles = Article.published.limit(3) unless @have_related
+      @other_articles = Article.published.limit(3)
     end
 
     respond_to do |format|
@@ -41,8 +36,7 @@ class ArticlesController < ApplicationController
   end
 
   def redirect_tinylink
-    @article = Article.published.find_by_tinylink(params[:tinylink])
-    raise ActiveRecord::RecordNotFound unless @article
+    @article = Article.published.find_by_tinylink!(params[:tinylink])
     redirect_to article_path(@article)
   end
 

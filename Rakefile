@@ -66,35 +66,13 @@ task :ping => :environment do
 end
 
 desc 'Updates all entities'
-task :update => [ 'update:series', 'update:articles', 'update:related' ]
+task :update => [ 'update:series', 'update:articles' ]
 
 namespace :update do
   # @todo: abstract this task
   desc 'Update articles from *.yml files in content/articles/, use path= for a specific article'
   task :articles => :environment do
     update_model('articles', Article, ArticlesController.new)
-  end
-
-  desc 'Update all articles with their related articles (options num= and verbose=)'
-  task :related => :environment do
-    is_verbose = to_bool(ENV['verbose'])
-    num_related = (ENV['num'] || 3).to_i
-    lsi = Classifier::LSI.new
-    articles = Article.published.all
-    articles.each do |article|
-      lsi.add_item(article) {|x| article.content_text}
-    end
-    articles.each do |article|
-      article.related_articles.clear
-      $stdout.puts "Articles related to '#{article.title}'" if is_verbose
-      lsi.find_related(article.content_text, num_related + 1).find_all{|r| r != article}.take(num_related).each do |related_article|
-        $stdout.puts "    * #{related_article.title}" if is_verbose
-        article.related_articles << related_article
-      end
-      article.save!
-      $stdout.puts '' if is_verbose
-    end
-    $stdout.puts "Updated related articles for #{articles.count} article(s)"
   end
 
   desc 'Update series from *.yml files in content/series/, use path= for a specific series'
