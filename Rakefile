@@ -49,13 +49,12 @@ end
 
 desc 'Ping major search engines to indicate that our sitemap has been updated'
 task :ping => :environment do
-  if !APP_CONFIG['url']
+  if !App.url
     $stderr.puts "\t[error] Missing config key 'url'."
     exit 1
   end
 
-  include ActionController::UrlWriter
-  sitemap = APP_CONFIG['url'] + sitemap_path(:format => :xml)
+  sitemap = App.url + Rails.application.routes.url_helpers.sitemap_path(:format => :xml)
   [ "http://www.google.com/webmasters/sitemaps/ping?sitemap=",
     "http://www.bing.com/webmaster/ping.aspx?siteMap=" ,
     "http://search.yahooapis.com/SiteExplorerService/V1/updateNotification?appid=YahooDemo&url="
@@ -81,7 +80,7 @@ namespace :update do
   end
 
   task :top => :environment do
-    if APP_CONFIG['analytics_id'].blank?
+    if App.analytics_id.blank?
       $stderr.puts "Config option 'analytics_id' must be set to fetch top articles"
       exit
     end
@@ -89,7 +88,7 @@ namespace :update do
     username = ask('Username: ')
     password = ask('Password: ') {|q| q.echo = false}
     Garb::Session.login(username, password)
-    profile = Garb::Management::Profile.all.detect {|p| p.web_property_id == APP_CONFIG['analytics_id']}
+    profile = Garb::Management::Profile.all.detect {|p| p.web_property_id == App.analytics_id}
     results = TopArticles.results(profile, 
       :filters => {:page_path.contains => '^/articles/*'}, 
       :sort => :pageviews.desc, 

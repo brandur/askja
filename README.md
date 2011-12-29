@@ -12,7 +12,6 @@ a specific blog. Hopefully a generic theme will eventually be built.
 
 Some major features:
 
-* Similar article generation using LSI indexer
 * Top article retrieval using Google analytics
 * Full-page caching for extremely fast page loads
 
@@ -31,9 +30,9 @@ Copy `config/config.yml.example` to `config/config.yml` and modify its values as
 
 ### Secret Token
 
-Copy `config/initializers/secret_token.rb.example` to `config/initializers/secret_token.rb`. Generate a new 512-bit token and store it in the new file. This is best accomplished using Rake's `secret` task:
+Deploy a new secret token with:
 
-    rake secret
+    rake secret_deploy
 
 ### Load Schema
 
