@@ -36,7 +36,7 @@ html
         header
           #header onclick='javascript:void(0)'
             strong.hide
-              a href='http://mutelight.org' title="#{APP_CONFIG['title']}"= APP_CONFIG['title']
+              a href='http://mutelight.org' title="#{App.config['title']}"= App.config['title']
         = content_for?(:content) ? yield(:content) : yield
         footer
           #about
