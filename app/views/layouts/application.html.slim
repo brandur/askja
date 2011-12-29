@@ -17,12 +17,9 @@ html
     - else
       link href='/articles.atom' rel='alternate' title="#{APP_CONFIG['title']}" type='application/atom+xml'
     
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
-    = javascript_include_tag 'jquery.easing.1.3'
-    = javascript_include_tag 'http://github.com/balupton/jquery-syntaxhighlighter/raw/master/scripts/jquery.syntaxhighlighter.min.js'
+    = stylesheet_link_tag    'application', :debug => Rails.env.development?
+    = javascript_include_tag 'application', :debug => Rails.env.development?
 
-    = stylesheet_link_tag 'application', 'sunburst'
-    = coffee_script_bundle
     = csrf_meta_tag
 
     = yield(:head)

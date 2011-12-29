@@ -1,21 +1,23 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '~> 3.1'
 
-gem 'bistro_car'
-gem 'formtastic'
-gem 'garb'
-gem 'highline'
+gem 'app'
+gem 'coffee-script'
+gem 'garb'             # Google Analytics API
+gem 'highline'         # CLI interaction
 gem 'jquery-rails'
-gem 'rake'
-gem 'redcarpet'
+gem 'libxml-ruby'
+gem 'redcarpet'        # Markdown parsing
 gem 'sass'
 gem 'slim'
 gem 'sqlite3'
+gem 'uglifier'
 
 group :development, :test do
-  gem 'cucumber'
   gem 'rspec-rails', '~> 2.4'
+  # Pretty printed test output
+  gem 'turn', :require => false
 end
 
 # Bundle edge Rails instead:

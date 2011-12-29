@@ -19,20 +19,11 @@ Some major features:
 Installation
 ------------
 
-### System Dependencies
-
-Install CoffeeScript via `npm` (the [Node Package Manager](http://npmjs.org/)).
-
-The LSI indexer runs much faster with the GNU Scientific Library installed:
-
-    brew install gsl
-    pacman -S gsl
-
 ### Bundle Gems
 
 Use bundler to prepare the application's Gem dependencies in its directory:
 
-    bundle install --path .
+    bundle install
 
 ### Configuration
 
