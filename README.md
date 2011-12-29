@@ -32,13 +32,13 @@ Open one of `config/app/development.rb` or `config/app/production.rb` and modify
 
 Deploy a new secret token with:
 
-    rake secret_deploy
+    bundle exec rake secret_deploy
 
 ### Load Schema
 
 After configuring a production database, load the database schema with:
 
-    rake db:schema:load RAILS_ENV=production
+    bundle exec rake db:schema:load RAILS_ENV=production
 
 ### Load Content
 
@@ -51,21 +51,21 @@ like:
 Run the `init` task whether or not custom content was checked out. This task
 will generate the `content/` directory if it doesn't already exist.
 
-    rake init
+    bundle exec rake init
 
 Load content to the database using:
 
-    rake update RAILS_ENV=production
+    bundle exec rake update RAILS_ENV=production
 
 Optionally, rank articles according to their views using:
 
-    rake update:top RAILS_ENV=production
+    bundle exec rake update:top RAILS_ENV=production
 
 ### Assets
 
 In production, assets should be precompiled:
 
-    rake assets:precompile
+    bundle exec rake assets:precompile
 
 ### Server
 
