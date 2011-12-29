@@ -26,7 +26,7 @@ Use bundler to prepare the application's Gem dependencies in its directory:
 
 ### Configuration
 
-Copy `config/config.yml.example` to `config/config.yml` and modify its values as appropriate.
+Open one of `config/app/development.rb` or `config/app/production.rb` and modify values as appropriate.
 
 ### Secret Token
 
