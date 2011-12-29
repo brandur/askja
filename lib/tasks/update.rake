@@ -58,7 +58,7 @@ end
 
 def update_model(name, klass, cache_controller)
   paths = unless ENV['path']
-    Dir["#{File.dirname(__FILE__)}/content/#{name}/**/*.yml"]
+    Dir["#{Rails.root}/content/#{name}/**/*.yml"]
   else
     [ENV['path']]
   end
