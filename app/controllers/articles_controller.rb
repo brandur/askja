@@ -44,7 +44,6 @@ class ArticlesController < ApplicationController
 
   def expire_for(article)
     expire_page_all_formats "/articles/#{article.permalink}"
-    expire_page_all_formats "/articles/#{article.permalink}"
     expire_page_all_formats "/series/#{article.series}" if article.series
   end
 
