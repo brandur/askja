@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title(APP_CONFIG['title'])
+  feed.title(App.title)
   feed.updated(@articles.first.published_at)
 
   for article in @articles
