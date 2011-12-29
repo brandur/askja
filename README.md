@@ -61,6 +61,12 @@ Optionally, rank articles according to their views using:
 
     rake update:top RAILS_ENV=production
 
+### Assets
+
+In production, assets should be precompiled:
+
+    rake assets:precompile
+
 ### Server
 
 Askja should now be ready to go. Deploy it on Phusion Passenger or your 

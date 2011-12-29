@@ -6,6 +6,7 @@ current_article
 current_article.yml
 db/*.sqlite3
 log/*.log
+public/assets
 public/images/articles
 public/stylesheets/application.css
 rake
