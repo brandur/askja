@@ -15,7 +15,7 @@ html
     - if content_for?(:rss)
       = yield(:rss)
     - else
-      link href='/articles.atom' rel='alternate' title="#{APP_CONFIG['title']}" type='application/atom+xml'
+      link href='/articles.atom' rel='alternate' title="#{App.config}" type='application/atom+xml'
     
     = stylesheet_link_tag    'application', :debug => Rails.env.development?
     = javascript_include_tag 'application', :debug => Rails.env.development?
