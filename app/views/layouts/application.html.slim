@@ -2,7 +2,7 @@ doctype 5
 
 html
   head
-    title= content_for?(:title) ? yield(:title) : APP_CONFIG['title']
+    title= content_for?(:title) ? yield(:title) : App.title
 
     meta content='text/html; charset=utf-8' http-equiv='Content-Type'
     meta name='author' content='Brandur Leach'
