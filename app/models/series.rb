@@ -7,7 +7,11 @@ class Series < ActiveRecord::Base
   scope :active, -> { joins(:articles).where('series_id IN (SELECT DISTINCT(series_id) FROM articles WHERE published_at < ?)', Time.now) }
   
   def content_html
-    html = Redcarpet.new(content, :fenced_code, :hard_wrap, :smart).to_html
+    renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, 
+      :fenced_code_blocks => true, :hard_wrap => true)
+    html = renderer.render(content)
+
+    # Redcarpet now allows a new renderer to be defined. This would be better.
     html = html.gsub /<code class="(\w+)">/, %q|<code class="language-\1">|
   end
 
