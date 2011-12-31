@@ -7,7 +7,7 @@ namespace :create do
         'permalink'    => permalink, 
         'tinylink'     => title.split(/ /).first.strip.downcase.gsub(/[^A-Za-z0-9]/, ''),
         'published_at' => Time.now.strftime("%B %d, %Y %k:%M"), 
-        'location'     => 'Calgary', 
+        'location'     => 'San Francisco', 
       }
     end
     `ln -f -s #{md} current_article`
