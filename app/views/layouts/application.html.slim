@@ -43,9 +43,12 @@ html
             h2
               | About
             p.important 
-            p.important My name is #{link_to 'Brandur', 'http://brandur.org'}. I'm a polyglot software engineer and part-time designer at #{link_to 'Heroku', 'http://heroku.com'}, working out of San Francisco, California. I'm very passionate about what I do, and you'll often find me at meetups around the Bay Area. Drop me a line at #{link_to 'brandur@mutelight.org', 'mailto:brandur@mutelight.org'}.
+            p.important My name is #{link_to 'Brandur', 'http://brandur.org'}. I'm a polyglot software engineer and part-time designer working at #{link_to 'Heroku', 'http://heroku.com'} in San Francisco, California. I'm a Canadian expat. My name is Icelandic. Drop me a line at #{link_to 'brandur@mutelight.org', 'mailto:brandur@mutelight.org'}.
             | Aside from technology, I'm interested in energy and how it relates to our society, travel, longboarding, muay thai, symphonic metal, and the guitar.
-            p.important If you liked this article, #{link_to 'you should follow me on Twitter', 'http://twitter.com/fyrerise'}.
+            - unless @article
+              p.important #{link_to 'You should follow me on Twitter', 'http://twitter.com/fyrerise'}.
+            - else
+              p.important If you liked this article, #{link_to 'you should follow me on Twitter', 'http://twitter.com/fyrerise'}.
           nav
             #nav
               span.item Navigation &rarr;
